@@ -1,26 +1,46 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { connect } from "react-redux";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Datapoint } from "./components/Datapoint";
+import { Toolbelt } from "./components/Toolbelt";
+import { RootState } from "./state/store";
+import {
+  selectDeathPoints,
+  selectPace,
+  selectPreviousLevel,
+  selectLevelAverage
+} from "./state/current-run/current-run.selectors";
+
+class App extends React.Component<ReturnType<typeof mapStateToProps>> {
+  render() {
+    const {
+      start,
+      pace,
+      previousLevel,
+      levelAverage,
+      deathPoints
+    } = this.props;
+
+    return (
+      <>
+        <Datapoint label="Estimated Final Score (L22)" value={pace} />
+        <Datapoint label="Previous Level" value={previousLevel} />
+        <Datapoint label="Level Average (L5 - L21)" value={levelAverage} />
+        <Datapoint label="Start Score (L1 - L4)" value={start} />
+        <Datapoint label="Death Points" value={deathPoints} />
+
+        <Toolbelt />
+      </>
+    );
+  }
 }
 
-export default App;
+const mapStateToProps = (state: RootState) => ({
+  start: state.currentRun.start,
+  pace: selectPace(state),
+  previousLevel: selectPreviousLevel(state),
+  deathPoints: selectDeathPoints(state),
+  levelAverage: selectLevelAverage(state)
+});
+
+export default connect(mapStateToProps)(App);
