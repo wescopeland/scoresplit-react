@@ -9,14 +9,14 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
-    "react-scripts": "3.4.3",
+    "react-scripts": "3.4.1",
     "redux": "^4.0.5"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test:unit:ci": "yarn test --watchAll=false --coverage",
+    "test": "react-scripts test --env=jsdom-sixteen",
+    "test:unit:ci": "react-scripts test --watchAll=false --coverage",
     "eject": "react-scripts eject",
     "format": "prettier --write . '**/*.{json,md,ts,tsx}'",
     "format:write": "prettier --write . '**/*.{json,md,ts,tsx}'",
@@ -47,10 +47,10 @@
     "@types/node": "^12.0.0",
     "@types/react": "^16.9.0",
     "@types/react-dom": "^16.9.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@testing-library/jest-dom": "5.5.0",
+    "@testing-library/react": "10.0.4",
+    "@testing-library/user-event": "10.1.0",
     "prettier": "2.0.5",
-    "typescript": "~3.7.2"
+    "typescript": "~3.8.3"
   }
 }

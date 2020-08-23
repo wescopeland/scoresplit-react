@@ -1,33 +1,21 @@
 import React from "react";
-import { withStyles, WithStyles } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 
 interface DifferenceProps {
   value: number;
 }
 
-class Difference extends React.PureComponent<DifferenceProps & WithStyles> {
+export class Difference extends React.PureComponent<DifferenceProps> {
   render() {
-    const { value, classes } = this.props;
+    const { value } = this.props;
 
-    const colorClass = value >= 0 ? classes.positive : classes.negative;
     const plusOrMinus = value >= 0 ? "+" : "-";
 
     return (
-      <span className={colorClass}>
+      <Box component="span" color={value >= 0 ? "#00e676" : "#ff1744"}>
         ({plusOrMinus}
         {Math.abs(value).toLocaleString()})
-      </span>
+      </Box>
     );
   }
 }
-
-const styles = {
-  positive: {
-    color: "#00e676"
-  },
-  negative: {
-    color: "#ff1744"
-  }
-};
-
-export default withStyles(styles)(Difference);
