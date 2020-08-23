@@ -1,1 +1,1 @@
-export { default as ScoreInput } from "./ScoreInput";
+export { ScoreInput } from "./ScoreInput";

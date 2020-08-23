@@ -1,23 +1,18 @@
 import { fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
+import * as ReactReduxModule from "react-redux";
 
 import { ScoreInput } from "./ScoreInput";
+import { currentRunActions } from "../../../state/current-run/current-run.slice";
 
 describe("Component: ScoreInput", () => {
   it("renders without crashing", () => {
     // ARRANGE
-    const mockAddDeath = jest.fn();
-    const mockAddBonus = jest.fn();
-    const mockAddScore = jest.fn();
+    const mockUseDispatch = jest.fn();
+    spyOn(ReactReduxModule, "useDispatch").and.returnValue(mockUseDispatch);
 
-    const { container } = render(
-      <ScoreInput
-        addDeath={mockAddDeath as any}
-        addBonus={mockAddBonus as any}
-        addScore={mockAddScore as any}
-      />
-    );
+    const { container } = render(<ScoreInput />);
 
     // ASSERT
     expect(container).toBeTruthy();
@@ -25,17 +20,10 @@ describe("Component: ScoreInput", () => {
 
   it("can add a shorthand score", async () => {
     // ARRANGE
-    const mockAddDeath = jest.fn();
-    const mockAddBonus = jest.fn();
-    const mockAddScore = jest.fn();
+    const mockUseDispatch = jest.fn();
+    spyOn(ReactReduxModule, "useDispatch").and.returnValue(mockUseDispatch);
 
-    render(
-      <ScoreInput
-        addDeath={mockAddDeath as any}
-        addBonus={mockAddBonus as any}
-        addScore={mockAddScore as any}
-      />
-    );
+    render(<ScoreInput />);
 
     const inputField = screen.getByRole("textbox");
 
@@ -44,22 +32,17 @@ describe("Component: ScoreInput", () => {
     fireEvent.keyDown(inputField, { key: "Enter", code: "Enter" });
 
     // ASSERT
-    expect(mockAddScore).toHaveBeenCalledWith(100000);
+    expect(mockUseDispatch).toHaveBeenCalledWith(
+      currentRunActions.addScore(100000)
+    );
   });
 
   it("can add a death", async () => {
     // ARRANGE
-    const mockAddDeath = jest.fn();
-    const mockAddBonus = jest.fn();
-    const mockAddScore = jest.fn();
+    const mockUseDispatch = jest.fn();
+    spyOn(ReactReduxModule, "useDispatch").and.returnValue(mockUseDispatch);
 
-    render(
-      <ScoreInput
-        addDeath={mockAddDeath as any}
-        addBonus={mockAddBonus as any}
-        addScore={mockAddScore as any}
-      />
-    );
+    render(<ScoreInput />);
 
     const inputField = screen.getByRole("textbox");
 
@@ -68,22 +51,17 @@ describe("Component: ScoreInput", () => {
     fireEvent.keyDown(inputField, { key: "Enter", code: "Enter" });
 
     // ASSERT
-    expect(mockAddDeath).toHaveBeenCalledWith(2000);
+    expect(mockUseDispatch).toHaveBeenCalledWith(
+      currentRunActions.addDeath(2000)
+    );
   });
 
   it("can add a bonus", async () => {
     // ARRANGE
-    const mockAddDeath = jest.fn();
-    const mockAddBonus = jest.fn();
-    const mockAddScore = jest.fn();
+    const mockUseDispatch = jest.fn();
+    spyOn(ReactReduxModule, "useDispatch").and.returnValue(mockUseDispatch);
 
-    render(
-      <ScoreInput
-        addDeath={mockAddDeath as any}
-        addBonus={mockAddBonus as any}
-        addScore={mockAddScore as any}
-      />
-    );
+    render(<ScoreInput />);
 
     const inputField = screen.getByRole("textbox");
 
@@ -92,6 +70,8 @@ describe("Component: ScoreInput", () => {
     fireEvent.keyDown(inputField, { key: "Enter", code: "Enter" });
 
     // ASSERT
-    expect(mockAddBonus).toHaveBeenCalledWith(100000);
+    expect(mockUseDispatch).toHaveBeenCalledWith(
+      currentRunActions.addBonus(100000)
+    );
   });
 });

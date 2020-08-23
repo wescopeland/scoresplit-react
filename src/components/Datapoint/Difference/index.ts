@@ -1,1 +1,1 @@
-export { default as Difference } from "./Difference";
+export { Difference } from "./Difference";
