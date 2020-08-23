@@ -4,7 +4,7 @@ import { TextField } from "@material-ui/core";
 
 import { currentRunActions } from "../../../state/current-run/current-run.slice";
 
-class ScoreInput extends React.Component<typeof mapDispatchToProps> {
+export class ScoreInput extends React.Component<typeof mapDispatchToProps> {
   state = {
     inputValue: ""
   };
