@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Box } from "@material-ui/core";
+import { Box, styled } from "@material-ui/core";
 
 import { Chart } from "./components/Chart";
 import { Datapoint } from "./components/Datapoint";
@@ -12,6 +12,16 @@ import {
   selectPreviousLevel,
   selectLevelAverage
 } from "./state/current-run/current-run.selectors";
+
+const StyledBox = styled(Box)({
+  width: 400,
+  height: 300,
+  position: "absolute",
+  top: 32,
+  right: 32,
+  border: "1px solid #eee",
+  backgroundColor: "black"
+});
 
 export const App = () => {
   const start = useSelector((state: RootState) => state.currentRun.start);
@@ -31,9 +41,9 @@ export const App = () => {
       <Datapoint label="Start Score (L1 - L4)" value={start} />
       <Datapoint label="Death Points" value={deathPoints} />
 
-      <Box width="100%" height={300}>
+      <StyledBox>
         <Chart currentPace={pace} levelScoresCount={levelScoresCount} />
-      </Box>
+      </StyledBox>
 
       <Toolbelt />
     </>

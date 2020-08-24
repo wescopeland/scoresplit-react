@@ -16,9 +16,18 @@ export const Chart = ({ levelScoresCount, currentPace }: ChartProps) => {
       setCurrentLevel(5);
     } else {
       const newPace = { x: currentLevel, y: currentPace };
-      setPaces((paces) => [...paces, newPace]);
 
-      setCurrentLevel(currentLevel + 1);
+      // We use levelScoresCount to check if the pace was adjusted because
+      // of something like a bonus or a death. In that case, we DON'T want
+      // to update the chart. We only want to update the chart when a level
+      // is actually completed.
+      if (
+        !paces.length ||
+        (paces.length && paces[paces.length - 1].x !== levelScoresCount + 4)
+      ) {
+        setPaces((paces) => [...paces, newPace]);
+        setCurrentLevel(currentLevel + 1);
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPace, levelScoresCount]);
